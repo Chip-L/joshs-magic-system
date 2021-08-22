@@ -1,0 +1,26 @@
+{
+  "name": "joshs-magic-system",
+  "version": "1.0.0",
+  "description": "A site to help set up Josh's magic system",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chip-L/joshs-magic-system.git"
+  },
+  "author": "Chip Long and Josh Lorton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Chip-L/joshs-magic-system/issues"
+  },
+  "homepage": "https://github.com/Chip-L/joshs-magic-system#readme",
+  "dependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
