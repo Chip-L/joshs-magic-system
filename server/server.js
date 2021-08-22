@@ -4,7 +4,7 @@ const path = require("path");
 
 // const { typeDefs, resolvers } = require("./schemas");
 // const { authMiddleware } = require("./utils/auth");
-// const db = require("./config/connection");
+const db = require("./config/connection");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -31,9 +31,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-// db.once("open", () => {
-app.listen(PORT, () => {
-  console.log(`API server running on port ${PORT}!`);
-  // console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+db.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    // console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
 });
-// });
