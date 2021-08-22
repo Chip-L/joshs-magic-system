@@ -1,5 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -16,6 +16,14 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+        </a>
+        <a
+          className="App-link"
+          href="http://localhost:3001/graphql"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Play with GraphQL
         </a>
       </header>
     </div>
