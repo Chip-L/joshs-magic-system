@@ -20,7 +20,7 @@ const typeDefs = gql`
     users: [User]
   }
 
-  type Mutations {
+  type Mutation {
     login(email: String!, password: String!): Auth
     addUser(
       firstName: String
@@ -30,13 +30,13 @@ const typeDefs = gql`
       roles: [String]
     ): Auth
 
-    updateUser(
-      firstName: String
-      lastName: String
-      email: String
-      password: String
-      roles: [String]
-    ): User
+    # updateUser(
+    #   firstName: String
+    #   lastName: String
+    #   email: String
+    #   password: String
+    #   roles: [String]
+    # ): User
   }
 `;
 

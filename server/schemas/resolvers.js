@@ -1,5 +1,6 @@
 const { AuthenticationError } = require("apollo-server-errors");
 const { signToken } = require("../utils/auth");
+const { User } = require("../models");
 
 const resolvers = {
   Query: {
@@ -40,6 +41,16 @@ const resolvers = {
       return { token, user };
     },
   },
+
+  // updateUser: async (_, args, context) => {
+  //   if (context.user) {
+  //     return await User.findByIdAndUpdate(context.user._id, args, {
+  //       new: true,
+  //     });
+  //   }
+
+  //   throw new AuthenticationError("Not logged in");
+  // },
 };
 
 module.exports = resolvers;
