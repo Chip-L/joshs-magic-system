@@ -1,12 +1,12 @@
 import { useReducer } from "react";
-import {} from "./actions.js";
+import { SET_CURRENT_USER } from "./actions.js";
 
 export const reducer = (state, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
         ...state,
-        user,
+        user: action.user,
       };
     default:
       return state;

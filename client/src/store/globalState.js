@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { useContext, createContext } from "react";
 import { useDataReducer } from "./dataReducer";
 
 const StoreContext = createContext();
