@@ -24,11 +24,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
   },
-  roles: [
-    {
-      role: { type: String },
-    },
-  ],
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // set up pre-save middleware to create password
