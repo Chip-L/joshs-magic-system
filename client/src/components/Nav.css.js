@@ -19,3 +19,20 @@ export const Logo = styled.div`
 export const NavLink = styled(Link)`
   text-decoration: none;
 `;
+export const Actions = styled.div`
+  display: flex
+  
+  padding: 1rem;
+`;
+
+export const ActionItem = styled.div`
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 2rem;
+  padding: 0 1rem;
+
+  &:hover {
+    color: lightblue;
+  }
+`;
