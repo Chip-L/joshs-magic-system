@@ -1,10 +1,10 @@
 import React from "react";
+import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
 // CSS
 import { Content, Panel, PanelContainer, Divider } from "./Home.css";
 //Global Store
 import { useStoreContext } from "../store/globalState";
-import LoginForm from "../components/LoginForm";
-import SignUpForm from "../components/SignUpForm";
 
 const Home = () => {
   const [{ user }] = useStoreContext();

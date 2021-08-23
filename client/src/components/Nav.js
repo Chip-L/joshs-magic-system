@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Logo, Navbar, NavLink } from "./Nav.css";
 
 //State Store
