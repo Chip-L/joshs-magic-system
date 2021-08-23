@@ -6,7 +6,7 @@ import {
   Label,
   LabelGroup,
   Title,
-} from "./LoginForm.css";
+} from "./Login+SignUpForm.css";
 
 // global store
 
@@ -36,23 +36,25 @@ const LoginForm = () => {
 
   return (
     <>
-      <Title>Login</Title>
+      <Title>Log In</Title>
       <Form onSubmit={handleFormSubmit}>
         <LabelGroup>
-          <Label for="email">Email:</Label>
+          <Label htmlFor="loginEmail">Email:</Label>
           <Control
             type="email"
-            id="email"
+            required
+            id="loginEmail"
             placeholder="Your email..."
             name="email"
             onChange={handleChange}
           ></Control>
         </LabelGroup>
         <LabelGroup>
-          <Label for="password">Password:</Label>
+          <Label htmlFor="loginPassword">Password:</Label>
           <Control
             type="password"
-            id="password"
+            required
+            id="loginPassword"
             placeholder="Your password..."
             name="password"
             onChange={handleChange}

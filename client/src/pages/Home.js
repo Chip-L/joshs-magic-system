@@ -4,6 +4,7 @@ import { Content } from "./Home.css";
 //Global Store
 import { useStoreContext } from "../store/globalState";
 import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
 
 const Home = () => {
   const [{ user }] = useStoreContext();
@@ -16,6 +17,7 @@ const Home = () => {
         <>
           <h1>Hello Magic User!</h1>
           <LoginForm />
+          <SignUpForm />
         </>
       )}
     </Content>

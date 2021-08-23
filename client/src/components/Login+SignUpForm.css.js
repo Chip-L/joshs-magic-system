@@ -19,6 +19,7 @@ export const LabelGroup = styled.div`
 export const Label = styled.label`
   // label formatting here
   padding-right: 0.5rem;
+  align-text: right;
 `;
 
 export const Control = styled.input`
