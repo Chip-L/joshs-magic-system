@@ -6,10 +6,6 @@ import { useStoreContext } from "../store/globalState";
 // Utils
 import Auth from "../utils/authentication";
 
-// const logout = (event) => {
-//   Auth.logout();
-// };
-
 const Nav = () => {
   const [{ user }] = useStoreContext();
 
@@ -20,7 +16,7 @@ const Nav = () => {
           <Logo>Josh's Magic System</Logo>
         </NavLink>
         <Actions>
-          {user._id && Auth.loggedIn() ? (
+          {user._id && Auth.isLoggedIn() ? (
             <ActionItem onClick={() => Auth.logout()}>Log Out</ActionItem>
           ) : null}
         </Actions>

@@ -7,9 +7,8 @@ class AuthenticationService {
   }
 
   /** Check logged in status */
-  loggedIn() {
+  isLoggedIn() {
     const token = this.getToken();
-    console.log("token =", token);
     return !!token && !this.isTokenExpired(token);
   }
 
