@@ -9,7 +9,34 @@ export const LOGIN_USER = gql`
         firstName
         lastName
         email
-        roles
+        isAdmin
+      }
+    }
+  }
+`;
+
+export const ADD_USER = gql`
+  mutation AddUserMutation(
+    $lastName: String!
+    $email: String!
+    $password: String!
+    $firstName: String
+    $isAdmin: Boolean
+  ) {
+    addUser(
+      lastName: $lastName
+      email: $email
+      password: $password
+      firstName: $firstName
+      isAdmin: $isAdmin
+    ) {
+      token
+      user {
+        _id
+        firstName
+        lastName
+        email
+        isAdmin
       }
     }
   }

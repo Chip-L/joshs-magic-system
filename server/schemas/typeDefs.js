@@ -7,7 +7,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     password: String
-    roles: [String]
+    isAdmin: Boolean
   }
 
   type Auth {
@@ -27,7 +27,7 @@ const typeDefs = gql`
       lastName: String!
       email: String!
       password: String!
-      roles: [String]
+      isAdmin: Boolean
     ): Auth
 
     # updateUser(
@@ -35,7 +35,7 @@ const typeDefs = gql`
     #   lastName: String
     #   email: String
     #   password: String
-    #   roles: [String]
+    #   isAdmin: Boolean
     # ): User
   }
 `;
