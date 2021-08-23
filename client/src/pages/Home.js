@@ -11,7 +11,7 @@ const Home = () => {
 
   return (
     <Content>
-      {user.name ? (
+      {user._id ? (
         <h1>Display spell here</h1>
       ) : (
         <>
