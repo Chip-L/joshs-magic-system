@@ -1,6 +1,6 @@
 import React from "react";
 // CSS
-import { Content } from "./Home.css";
+import { Content, Panel, PanelContainer, Divider } from "./Home.css";
 //Global Store
 import { useStoreContext } from "../store/globalState";
 import LoginForm from "../components/LoginForm";
@@ -16,8 +16,15 @@ const Home = () => {
       ) : (
         <>
           <h1>Hello Magic User!</h1>
-          <LoginForm />
-          <SignUpForm />
+          <PanelContainer>
+            <Panel>
+              <LoginForm />
+            </Panel>
+            <Divider />
+            <Panel>
+              <SignUpForm />
+            </Panel>
+          </PanelContainer>
         </>
       )}
     </Content>

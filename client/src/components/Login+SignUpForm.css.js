@@ -27,16 +27,15 @@ export const Control = styled.input`
 `;
 
 export const Button = styled.input`
-  // width: 80%;
   background-color: blue;
   color: white;
-  padding 1.4rem 5rem;
+  margin-top: 0.5rem; padding 1.4rem 5rem;
   border: none;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   cursor: pointer;
   font-weight: bold;
   font-size: 1.6rem;
-  
+
   &:hover {
     background-color: lightblue;
   }
