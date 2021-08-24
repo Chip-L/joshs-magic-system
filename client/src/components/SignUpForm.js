@@ -74,9 +74,6 @@ const SignUpForm = () => {
     });
   };
 
-  // console.log("errors:", errors);
-  // const { error } = errors;
-  console.log("signup error:", error);
   return (
     <>
       <Title>Sign Up</Title>
