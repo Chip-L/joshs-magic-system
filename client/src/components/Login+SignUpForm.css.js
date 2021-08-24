@@ -40,3 +40,9 @@ export const Button = styled.input`
     background-color: lightblue;
   }
 `;
+
+export const ErrMsg = styled.p`
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+`;
