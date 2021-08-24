@@ -14,6 +14,12 @@ export const Form = styled.form`
   // form styling here
 `;
 
+export const LabelGroup = styled.div`
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
 export const Label = styled.label`
   padding-right: 0.5rem;
   align-text: right;
