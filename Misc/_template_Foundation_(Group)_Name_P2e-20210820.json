@@ -1,0 +1,218 @@
+{
+  "foundation": {
+    "name": "TEMPLATE - P2e",
+    "mana": 0,
+    "traits": {
+      "rarity": "COMMON",
+      "list": ["","",""]
+    },
+    "traditions": {
+      "arcane": false,
+      "divine": false,
+      "occult": false,
+      "primal": false
+    },
+    "features": {
+      "deities": ["","",""],
+      "domains": ["","",""],
+      "mysteries": ["","",""],
+      "revelations": ["","",""],
+      "bloodlines": ["","",""],
+      "patrons": ["","",""],
+      "lessons": ["","",""],
+      "schools": ["","",""]
+    },
+    "cast": {
+      "actions": 1,
+      "reaction": false,
+      "components": {
+        "focus": false,
+        "material": false,
+        "somatic": false,
+        "verbal": true
+      },
+      "cost": {
+        "description": "",
+        "value_cp": 1
+      },
+      "requirements": "",
+      "trigger": ""
+    },
+    "range": "",
+    "area": {
+      "number": 1,
+      "size": 0,
+      "comment_shape": "cube side, cylinder radius/height=4r, sphere radius",
+      "shape": ""
+    },
+    "targets": {
+      "number": 1,
+      "description": "",
+      "proximity": 30
+    },
+    "attack": false,
+    "saving_throw": {
+      "basic": true,
+      "type": "",
+      "critcal_succcess": {
+        "description": "",
+        "duration": 0,
+        "temp_immune": 0
+      },
+      "success": {
+        "description": "",
+        "duration": 0,
+        "temp_immune": 0
+      },
+      "faiure": {
+        "description": "",
+        "duration": 0,
+        "temp_immune": 0
+      },
+      "critcal_failure": {
+        "description": "",
+        "duration": 0,
+        "temp_immune": 0
+      }
+    },
+    "damage": {
+      "num_dice": 0,
+      "die_size": 0,
+      "type": ""
+    },
+    "duration": {
+      "rounds": 1,
+      "sustain": [
+        {
+          "actions": 1,
+          "description": "",
+          "mana": 4
+        },
+        {
+          "actions": 2,
+          "description": "",
+          "mana": 2
+        },
+        {
+          "actions": 3,
+          "description": "",
+          "mana": 0
+        }
+      ],
+      "dismiss": 1
+    },
+    "effect": "descriptive text"
+  },
+  "heightened": {
+    "base": {
+      "range": "",
+      "damage": {
+        "num_dice": 0,
+        "die_size": 0,
+        "type": ""
+      }
+    },
+    "extension": [
+      {
+        "name": "",
+        "mana": 0,
+        "modify": {
+          "range": "",
+          "damage": {
+            "num_dice": 0,
+            "die_size": 0
+          }
+        },
+        "overwrite": {
+          "damage": {
+            "type": ""
+          }
+        },
+        "effect": "descriptive text"
+      },
+      {
+        "name": "",
+        "mana": 0,
+        "modify": {
+          "range": "",
+          "damage": {
+            "num_dice": 0,
+            "die_size": 0
+          }
+        },
+        "overwrite": {
+          "damage": {
+            "type": ""
+          }
+        },
+        "effect": "descriptive text"
+      }
+    ]
+  },
+  "cast": {
+    "focus": [
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      },
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      }
+    ],
+    "material": [
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      },
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      }
+    ],
+    "somatic": [
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      },
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      }
+    ],
+    "verbal": [
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      },
+      {
+        "name": "",
+        "value_cp": 1,
+        "modify": {},
+        "overwrite": {},
+        "effect": "descriptive text"
+      }
+    ]
+  }
+}
