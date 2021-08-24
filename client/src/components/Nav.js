@@ -1,25 +1,32 @@
 import React from "react";
 // CSS
-import { ActionItem, Actions, Logo, Navbar, NavLink } from "./Nav.css";
+import { MenuItem, Menu, Logo, Navbar, NavLink } from "./Nav.css";
 //State Store
 import { useStoreContext } from "../store/globalState";
 // Utils
 import Auth from "../utils/authentication";
 
 const Nav = () => {
-  const [{ user }] = useStoreContext();
+  const [{ user }] = useStoreContext(); // keep this so that the page refreshes with auth
 
   return (
     <>
       <Navbar>
         <NavLink to="/">
-          <Logo>Josh's Magic System</Logo>
+          <Logo>
+            SKILL<i>d</i>20
+          </Logo>
         </NavLink>
-        <Actions>
-          {user._id && Auth.isLoggedIn() ? (
-            <ActionItem onClick={() => Auth.logout()}>Log Out</ActionItem>
+        <Menu>
+          {Auth.isLoggedIn() ? (
+            <>
+              <NavLink to="/addspell">
+                <MenuItem>Add Spell</MenuItem>
+              </NavLink>
+              <MenuItem onClick={() => Auth.logout()}>Log Out</MenuItem>
+            </>
           ) : null}
-        </Actions>
+        </Menu>
       </Navbar>
     </>
   );

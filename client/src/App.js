@@ -10,6 +10,8 @@ import { StoreProvider } from "./store/globalState";
 
 import Nav from "./components/Nav.js";
 import Home from "./pages/Home";
+import AddSpellPage from "./pages/AddSpellPage";
+import { Content } from "./pages/Home.css";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -36,9 +38,12 @@ function App() {
       <Router>
         <StoreProvider>
           <Nav />
-          <Switch>
-            <Route exact path="/" component={Home} />
-          </Switch>
+          <Content>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/addspell" component={AddSpellPage} />
+            </Switch>
+          </Content>
         </StoreProvider>
       </Router>
     </ApolloProvider>
