@@ -45,4 +45,6 @@ export const ErrMsg = styled.p`
   color: red;
   font-weight: bold;
   font-style: italic;
+
+  margin-top: 1rem;
 `;

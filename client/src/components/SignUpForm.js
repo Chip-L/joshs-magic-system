@@ -38,7 +38,7 @@ const SignUpForm = () => {
     event.preventDefault();
 
     try {
-      console.log(formState);
+      // console.log(formState);
       const variables = {
         firstName: formState.firstName,
         lastName: formState.lastName,
@@ -74,6 +74,9 @@ const SignUpForm = () => {
     });
   };
 
+  // console.log("errors:", errors);
+  // const { error } = errors;
+  console.log("signup error:", error);
   return (
     <>
       <Title>Sign Up</Title>
@@ -134,7 +137,7 @@ const SignUpForm = () => {
 
         <Button type="submit" value="Submit" />
       </Form>
-      {error && <ErrMsg>{error}</ErrMsg>}
+      {error && <ErrMsg>{error.message}</ErrMsg>}
     </>
   );
 };

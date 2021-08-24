@@ -36,9 +36,20 @@ const resolvers = {
 
     addUser: async (_, args) => {
       console.log(args);
-      const user = await User.create(args);
-      const token = signToken(user);
+      let user, token;
+      try {
+        user = await User.create(args);
+        token = signToken(user);
+      } catch (error) {
+        console.log("error reached:");
+        if (error.code === 11000) {
+          console.log("error:", "user already exists");
+          throw new AuthenticationError("User already exists");
+        }
+        console.log("error:", error);
+      }
 
+      console.log("user:", user);
       return { token, user };
     },
   },
