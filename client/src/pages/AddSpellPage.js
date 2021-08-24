@@ -1,8 +1,9 @@
 import React from "react";
-import { Control, Form, Label, Section, Title } from "./AddSpellPage.css";
+import FoundationForm from "../components/FSoundationForm";
+import { Button, Title } from "./AddSpellPage.css";
 
 const AddSpellPage = () => {
-  const [formState, setFormState] = useState({});
+  const [foundationState, setFoundationState] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,12 +13,8 @@ const AddSpellPage = () => {
   return (
     <>
       <Title>Add Spell</Title>
-      <Form onSubmit={handleSubmit}>
-        <Section>
-          <Label>Spell Name</Label>
-          <Control type="text" required name={formState.spellName} />
-        </Section>
-      </Form>
+      <FoundationForm values={foundationState} update={setFoundationState} />
+      <Button type="submit" value="Submit" />
     </>
   );
 };
