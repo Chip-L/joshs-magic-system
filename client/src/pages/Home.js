@@ -5,14 +5,21 @@ import SignUpForm from "../components/SignUpForm";
 import { Content, Panel, PanelContainer, Divider } from "./Home.css";
 //Global Store
 import { useStoreContext } from "../store/globalState";
+// Utils
+import Auth from "../utils/authentication";
 
 const Home = () => {
   const [{ user }] = useStoreContext();
 
   return (
     <Content>
-      {user._id ? (
-        <h1>Display spell here</h1>
+      {Auth.isLoggedIn() ? (
+        <>
+          <h2>
+            Welcome: {user.firstName} {user.lastName}
+          </h2>
+          <h1>Display spell here</h1>
+        </>
       ) : (
         <>
           <h1>Hello Magic User!</h1>
