@@ -6,6 +6,7 @@ import { ADD_USER } from "../schema/mutations";
 import {
   Button,
   Control,
+  ErrMsg,
   Form,
   Label,
   LabelGroup,
@@ -19,7 +20,7 @@ import Auth from "../utils/authentication";
 
 const SignUpForm = () => {
   // global state variable
-  const [{ user }, dispatch] = useStoreContext();
+  const [, dispatch] = useStoreContext();
 
   // local state
   const [formState, setFormState] = useState({
@@ -31,13 +32,13 @@ const SignUpForm = () => {
   });
 
   // set up mutation for signing up
-  const [addUser, error] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
 
     try {
-      console.log(formState);
+      // console.log(formState);
       const variables = {
         firstName: formState.firstName,
         lastName: formState.lastName,
@@ -133,6 +134,7 @@ const SignUpForm = () => {
 
         <Button type="submit" value="Submit" />
       </Form>
+      {error && <ErrMsg>{error.message}</ErrMsg>}
     </>
   );
 };
