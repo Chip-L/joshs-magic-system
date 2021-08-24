@@ -19,13 +19,13 @@ export const Logo = styled.div`
 export const NavLink = styled(Link)`
   text-decoration: none;
 `;
-export const Actions = styled.div`
-  display: flex
-  
+export const Menu = styled.div`
+  display: flex;
+
   padding: 1rem;
 `;
 
-export const ActionItem = styled.div`
+export const MenuItem = styled.div`
   color: white;
   cursor: pointer;
   font-weight: bold;
