@@ -6,6 +6,7 @@ import { LOGIN_USER } from "../schema/mutations";
 import {
   Button,
   Control,
+  ErrMsg,
   Form,
   Label,
   LabelGroup,
@@ -19,7 +20,7 @@ import Auth from "../utils/authentication";
 
 const LoginForm = () => {
   // global state variable
-  const [{ user }, dispatch] = useStoreContext();
+  const [, dispatch] = useStoreContext();
 
   // local state variable
   const [formState, setFormState] = useState({ email: "", password: "" });
@@ -84,6 +85,7 @@ const LoginForm = () => {
         </LabelGroup>
         <Button type="submit" value="Submit" />
       </Form>
+      {error && <ErrMsg>{error.message}</ErrMsg>}
     </>
   );
 };
