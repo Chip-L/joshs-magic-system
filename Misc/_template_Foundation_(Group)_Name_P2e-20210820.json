@@ -4,7 +4,9 @@
     "mana": 0,
     "traits": {
       "rarity": "COMMON",
-      "list": ["","",""]
+      "difficulty": "Average",
+      "diffuculty_tip": "how hard a ritual is to cast: IE (incredibly easy), VE (very easy), E (easy), A (Average), H (hard), VH (very hard), IH (incredibly hard)",
+      "list": ["", "", ""]
     },
     "traditions": {
       "arcane": false,
@@ -13,14 +15,14 @@
       "primal": false
     },
     "features": {
-      "deities": ["","",""],
-      "domains": ["","",""],
-      "mysteries": ["","",""],
-      "revelations": ["","",""],
-      "bloodlines": ["","",""],
-      "patrons": ["","",""],
-      "lessons": ["","",""],
-      "schools": ["","",""]
+      "deities": ["", "", ""],
+      "domains": ["", "", ""],
+      "mysteries": ["", "", ""],
+      "revelations": ["", "", ""],
+      "bloodlines": ["", "", ""],
+      "patrons": ["", "", ""],
+      "lessons": ["", "", ""],
+      "schools": ["", "", ""]
     },
     "cast": {
       "actions": 1,
