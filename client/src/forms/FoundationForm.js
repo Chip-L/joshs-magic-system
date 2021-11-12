@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import CheckboxGroup from "../components/CheckboxGroup";
 // import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
 
 import { magicTraits } from "../lists/magicTraits";
-import { getSelectedValues, getOccurances } from "../utils/utilities";
+import { getSelectedValues } from "../utils/utilities";
 import "../pages/AddSpellPageStyle.css";
 
 /**
@@ -26,6 +27,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       case "select-multiple":
         newValue = getSelectedValues(event.target.id);
         break;
+
+      default:
+        break;
     }
 
     update({
@@ -34,11 +38,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
     });
   };
 
-  console.log(magicTraits);
+  // console.log(magicTraits);
 
   return (
     <form action="" onSubmit={onSubmit} name="foundationForm">
-      <div className="inputGroup">
+      <div className="inputGroup" info="spellname">
         <label htmlFor="spellname" className="leftLabel">
           Name
         </label>
@@ -51,7 +55,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="inputGroup">
+      <div className="inputGroup" info="mana">
         <label htmlFor="mana" className="leftLabel">
           Mana
         </label>
@@ -66,9 +70,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         />
       </div>
 
-      <fieldset id="traits" name="traits">
+      <fieldset id="traits">
         <legend>Traits</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="rarity">
           <label htmlFor="traits_rarity" className="leftLabel">
             Rarity
           </label>
@@ -84,7 +88,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="Unique">Unique</option>
           </select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="difficulty">
           <label htmlFor="traits_difficulty" className="leftLabel">
             Difficulty
           </label>
@@ -103,7 +107,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="IH">Incredibly Hard</option>
           </select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="traits_list">
           <label htmlFor="traits_list" className="leftLabel">
             List
           </label>
@@ -114,61 +118,25 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             onChange={handleChange}
           >
             {magicTraits.map((item) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </select>
         </div>
       </fieldset>
 
-      {/*
       <fieldset id="traditions">
         <legend>Traditions</legend>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_arcane"
-            name="traditions"
-            value="arcane"
-          />
-          <label htmlFor="traditions_arcane" className="rightLabel">
-            Arcane
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_divine"
-            name="traditions"
-            value="divine"
-          />
-          <label htmlFor="traditions_divine" className="rightLabel">
-            Divine
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_occult"
-            name="traditions"
-            value="occult"
-          />
-          <label htmlFor="traditions_occult" className="rightLabel">
-            Occult
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_primal"
-            name="traditions"
-            value="primal"
-          />
-          <label htmlFor="traditions_primal" className="rightLabel">
-            Primal
-          </label>
-        </div>
+        <CheckboxGroup
+          name="traditions"
+          valueList={["arcane", "divine", "occult", "primal"]}
+          values={values}
+          update={update}
+        />
       </fieldset>
 
+      {/*
       <fieldset id="features">
         <legend>Features</legend>
         <div className="inputGroup">
