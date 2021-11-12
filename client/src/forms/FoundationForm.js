@@ -5,6 +5,7 @@ import CheckboxGroup from "../components/CheckboxGroup";
 import { magicTraits } from "../lists/magicTraits";
 import { getSelectedValues } from "../utils/utilities";
 import "../pages/AddSpellPageStyle.css";
+import RadioButtonGroup from "../components/RadioButtonGroup";
 
 /**
  * displays the spell Foundation form. State is tracked in the parent. If values are passed in, they should be specifically for the foundation.
@@ -347,17 +348,22 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </div>
       </fieldset>
 
-      {/*
-      <div className="inputGroup">
+      <div className="inputGroup" info="range">
         <label htmlFor="range" className="leftLabel">
           Range
         </label>
-        <input type="text" id="range" name="range" onChange={handleChange} />
+        <input
+          type="text"
+          id="range"
+          name="range"
+          value={values?.range || ""}
+          onChange={handleChange}
+        />
       </div>
 
       <fieldset id="area">
         <legend>Area</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="area_number">
           <label htmlFor="area_number" className="leftLabel">
             Number
           </label>
@@ -365,12 +371,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="area_number"
             name="area_number"
-            value="1"
             min="1"
+            value={values?.area_number || "1"}
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="area_size">
           <label htmlFor="area_size" className="leftLabel">
             Size
           </label>
@@ -378,53 +384,38 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="area_size"
             name="area_size"
+            value={values?.area_size || ""}
             min="0"
             onChange={handleChange}
           />
         </div>
         {/* <!-- "comment_shape": "cube side, cylinder radius/height=4r, sphere radius" --> */}
-      {/*        <fieldset id="shape">
+        <fieldset id="shape">
           <legend>Shape</legend>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_cube"
-              name="shape"
-              value="cube"
-              checked
-            />
-            <label htmlFor="area_shape_cube" className="rightLabel toolTip">
-              Cube<span className="toolTipText">size = length of a side</span>
-            </label>
-          </div>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_cylinder"
-              name="shape"
-              value="cylinder"
-            />
-            <label htmlFor="area_shape_cylinder" className="rightLabel toolTip">
-              Cylinder
-              <span className="toolTipText">
-                size = radius of the cylinder and 1/4 the height
-              </span>
-            </label>
-          </div>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_sphere"
-              name="shape"
-              value="sphere"
-            />
-            <label htmlFor="area_shape_sphere" className="rightLabel toolTip">
-              Sphere<span className="toolTipText">size = radius of the sphere</span>
-            </label>
-          </div>
+          <RadioButtonGroup
+            name="shape"
+            valueList={[
+              {
+                value: "cube",
+                toolTipText: "size = length of a side",
+              },
+              {
+                value: "cylinder",
+                toolTip: "size = radius of the cylinder and 1/4 the height",
+                default: true,
+              },
+              {
+                value: "sphere",
+                toolTip: "size = radius of the sphere",
+              },
+            ]}
+            state={values}
+            updateState={updateState}
+          />
         </fieldset>
       </fieldset>
 
+      {/*
       <fieldset id="targets">
         <legend>Targets</legend>
         <div className="inputGroup">
