@@ -1,5 +1,16 @@
 import React, { useState } from "react";
 
+import { properCase } from "../utils/utilities";
+
+/**
+ *
+ * @param {*} props:
+ * name is string, this is the name that will be stored in the values
+ * valueList is array of values to be populated as checkboxes
+ * values is the state object that will change with the results
+ * update is the function to change the state object
+ * @returns
+ */
 function CheckboxGroup({ name, valueList, values, update }) {
   const [arrChecked, setArrChecked] = useState(values?.[name] || []);
 
@@ -34,7 +45,7 @@ function CheckboxGroup({ name, valueList, values, update }) {
             className="rightLabel"
             key={`${name}_${item}`}
           >
-            {item}
+            {properCase(item)}
           </label>
         </div>
       ))}
