@@ -1,38 +1,5 @@
 import styled from "styled-components";
 
-export const Title = styled.h2`
-  margin-bottom: 1rem;
-`;
-
-export const Section = styled.section`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  background-color: rgba(251, 245, 180, 0.3);
-`;
-
-export const Form = styled.form`
-  // form styling here
-`;
-
-export const LabelGroup = styled.div`
-  padding: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-export const Label = styled.label`
-  padding-right: 0.5rem;
-  align-text: right;
-
-  &::after {
-    content: ":";
-  }
-`;
-
-export const Control = styled.input`
-  // input field formatting here
-`;
-
 export const Button = styled.input`
   background-color: blue;
   color: white;
@@ -46,4 +13,48 @@ export const Button = styled.input`
   &:hover {
     background-color: lightblue;
   }
+`;
+
+export const Control = styled.input`
+  // input field formatting here
+`;
+
+export const LabelGroup = styled.div`
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const Form = styled.form`
+  // form styling here
+`;
+
+export const Label = styled.label`
+  padding-right: 0.5rem;
+  align-text: right;
+
+  &::after {
+    content: ":";
+  }
+`;
+
+export const Screen = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
+
+export const Section = styled.section`
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: rgba(251, 245, 180, 0.3);
+`;
+
+export const Side = styled.section`
+  max-width: 800px;
+`;
+
+export const Title = styled.h2`
+  margin-bottom: 1rem;
 `;

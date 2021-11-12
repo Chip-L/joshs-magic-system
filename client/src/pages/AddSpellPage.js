@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FoundationForm from "../forms/FoundationForm";
-import { Title } from "./AddSpellPage.css";
+import { Screen, Side, Title } from "./AddSpellPage.css";
 
 const AddSpellPage = () => {
   const [foundationState, setFoundationState] = useState({});
@@ -12,17 +12,21 @@ const AddSpellPage = () => {
     console.log(JSON.stringify(foundationState));
   };
   return (
-    <>
-      <Title>Add Spell</Title>
-      <FoundationForm
-        values={foundationState}
-        update={setFoundationState}
-        onSubmit={handleSubmit}
-      />
-      {/* <HeightenedForm ...>  // <-- will be propegated in to a different table */}
-      {/* <CastForm ...> // <-- will be propegated in to a different table */}
-      <p>{JSON.stringify(foundationState)}</p>
-    </>
+    <Screen>
+      <Side>
+        <Title>Add Spell</Title>
+        <FoundationForm
+          values={foundationState}
+          update={setFoundationState}
+          onSubmit={handleSubmit}
+        />
+        {/* <HeightenedForm ...>  // <-- will be propegated in to a different table */}
+        {/* <CastForm ...> // <-- will be propegated in to a different table */}
+      </Side>
+      <Side>
+        <p>{JSON.stringify(foundationState)}</p>
+      </Side>
+    </Screen>
   );
 };
 
