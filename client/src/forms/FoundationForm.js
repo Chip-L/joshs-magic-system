@@ -38,7 +38,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
   return (
     <form action="" onSubmit={onSubmit} name="foundationForm">
-      <div className="inputGroup">
+      <div className="inputGroup" info="spellname">
         <label htmlFor="spellname" className="leftLabel">
           Name
         </label>
@@ -51,7 +51,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           onChange={handleChange}
         />
       </div>
-      <div className="inputGroup">
+      <div className="inputGroup" info="mana">
         <label htmlFor="mana" className="leftLabel">
           Mana
         </label>
@@ -68,7 +68,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
       <fieldset id="traits" name="traits">
         <legend>Traits</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="rarity">
           <label htmlFor="traits_rarity" className="leftLabel">
             Rarity
           </label>
@@ -84,7 +84,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="Unique">Unique</option>
           </select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="difficulty">
           <label htmlFor="traits_difficulty" className="leftLabel">
             Difficulty
           </label>
@@ -103,7 +103,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="IH">Incredibly Hard</option>
           </select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="traits_list">
           <label htmlFor="traits_list" className="leftLabel">
             List
           </label>
@@ -114,16 +114,22 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             onChange={handleChange}
           >
             {magicTraits.map((item) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item}>
+                {item}
+              </option>
             ))}
           </select>
         </div>
       </fieldset>
 
-      {/*
       <fieldset id="traditions">
         <legend>Traditions</legend>
-        <div className="inputGroup">
+        <checkboxGroup
+          valueList={["arcane", "divine", "occult", "primal"]}
+          values={values}
+          update={update}
+        />
+        {/* <div className="inputGroup">
           <input
             type="checkbox"
             id="traditions_arcane"
@@ -166,9 +172,10 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           <label htmlFor="traditions_primal" className="rightLabel">
             Primal
           </label>
-        </div>
+        </div> */}
       </fieldset>
 
+      {/*
       <fieldset id="features">
         <legend>Features</legend>
         <div className="inputGroup">

@@ -1,6 +1,6 @@
 import React from "react";
-import LoginForm from "../components/LoginForm";
-import SignUpForm from "../components/SignUpForm";
+import LoginForm from "../forms/LoginForm";
+import SignUpForm from "../forms/SignUpForm";
 // CSS
 import { Content, Panel, PanelContainer, Divider } from "./Home.css";
 //Global Store
