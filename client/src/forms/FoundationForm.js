@@ -70,7 +70,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         />
       </div>
 
-      <fieldset id="traits" name="traits">
+      <fieldset id="traits">
         <legend>Traits</legend>
         <div className="inputGroup" info="rarity">
           <label htmlFor="traits_rarity" className="leftLabel">
@@ -135,50 +135,6 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           update={update}
         />
       </fieldset>
-      {/* <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_arcane"
-            name="traditions"
-            value="arcane"
-          />
-          <label htmlFor="traditions_arcane" className="rightLabel">
-            Arcane
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_divine"
-            name="traditions"
-            value="divine"
-          />
-          <label htmlFor="traditions_divine" className="rightLabel">
-            Divine
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_occult"
-            name="traditions"
-            value="occult"
-          />
-          <label htmlFor="traditions_occult" className="rightLabel">
-            Occult
-          </label>
-        </div>
-        <div className="inputGroup">
-          <input
-            type="checkbox"
-            id="traditions_primal"
-            name="traditions"
-            value="primal"
-          />
-          <label htmlFor="traditions_primal" className="rightLabel">
-            Primal
-          </label>
-        </div> */}
 
       {/*
       <fieldset id="features">
