@@ -7,25 +7,21 @@ import { properCase } from "../utils/utilities";
  * @param {*} props:
  * name is string, this is the name that will be stored in the values
  * valueList is array of values to be populated as checkboxes
- * values is the state object that will change with the results
- * update is the function to change the state object
+ * state is the state object that will change with the results
+ * updateState is the function to change the state object
  * @returns
  */
-function CheckboxGroup({ name, valueList, values, update }) {
-  const [arrChecked, setArrChecked] = useState(values?.[name] || []);
+function CheckboxGroup({ name, valueList, state, updateState }) {
+  const [arrChecked, setArrChecked] = useState(state?.[name] || []);
 
   const handleChange = (value) => {
-    console.log(arrChecked, value);
     //the logic here is to remove the id if its already exist else add it. and set it back to state
     const newArrChecked = arrChecked.includes(value)
-      ? arrChecked.filter((i) => i != value)
+      ? arrChecked.filter((i) => i !== value)
       : [...arrChecked, value];
 
     setArrChecked(newArrChecked);
-    update({
-      ...values,
-      [name]: newArrChecked,
-    });
+    updateState(name, newArrChecked);
   };
 
   return (

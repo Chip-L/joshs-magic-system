@@ -14,11 +14,23 @@ import "../pages/AddSpellPageStyle.css";
  */
 const FoundationForm = ({ values, update, onSubmit }) => {
   // const [foundationState, setFoundationState] = useState();
+  const updateState = (name, newValue) =>
+    update({
+      ...values,
+      [name]: newValue,
+    });
+
+  const handleBlur = (name) => {
+    if (name in values) {
+      updateState(name, values[name].trim());
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value, type } = event.target;
-    let newValue = value;
+    let newValue;
 
-    console.log(event.target);
+    console.log(type);
 
     switch (type) {
       case "number":
@@ -27,15 +39,18 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       case "select-multiple":
         newValue = getSelectedValues(event.target.id);
         break;
-
+      case "checkbox":
+        newValue = event.target.checked;
+        break;
+      case "textarea":
+        newValue = value;
+        break;
       default:
+        newValue = value.trim();
         break;
     }
 
-    update({
-      ...values,
-      [name]: newValue,
-    });
+    updateState(name, newValue);
   };
 
   // console.log(magicTraits);
@@ -131,12 +146,13 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         <CheckboxGroup
           name="traditions"
           valueList={["arcane", "divine", "occult", "primal"]}
-          values={values}
-          update={update}
+          state={values}
+          updateState={updateState}
         />
       </fieldset>
 
       {/*
+      // check https://www.w3schools.com/jsref/event_ondragleave.asp for some ideas on better way to do these lists (drag drop)
       <fieldset id="features">
         <legend>Features</legend>
         <div className="inputGroup">
@@ -228,12 +244,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           ></select>
         </div>
       </fieldset>
-
+      */}
       <fieldset id="cast">
         <legend>Cast</legend>
         <div>
           {/* <!-- this div provides extra spacing around the input fileds. most notably it puts the other fieldsets on their own lines--> */}
-      {/*          <div className="inputGroup">
+          <div className="inputGroup" info="cast_actions">
             <label htmlFor="cast_actions" className="leftLabel">
               Actions
             </label>
@@ -241,18 +257,19 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="number"
               id="cast_actions"
               name="cast_actions"
-              value="1"
+              value={values?.cast_actions || "1"}
               min="0"
               max="3"
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="cast_reaction">
             <input
               type="checkbox"
               id="cast_reaction"
               name="cast_reaction"
-              value="reaction"
+              checked={values?.cast_reaction}
+              // value={values?.cast_reaction || "reaction"}
               onChange={handleChange}
             />
             <label htmlFor="cast_reaction" className="rightLabel">
@@ -261,54 +278,17 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           </div>
           <fieldset id="components">
             <legend>Components</legend>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_focus"
-                name="cast_components"
-                value="focus"
-              />
-              <label htmlFor="cast_components_focus" className="rightLabel">
-                Focus
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_material"
-                name="cast_components"
-                value="material"
-              />
-              <label htmlFor="cast_components_material" className="rightLabel">
-                Material
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_somatic"
-                name="cast_components"
-                value="somatic"
-              />
-              <label htmlFor="cast_components_somatic" className="rightLabel">
-                Somatic
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_verbal"
-                name="cast_components"
-                value="verbal"
-              />
-              <label htmlFor="cast_components_verbal" className="rightLabel">
-                Verbal
-              </label>
-            </div>
+            <CheckboxGroup
+              name="cast_components"
+              valueList={["focus", "material", "somatic", "verbal"]}
+              state={values}
+              updateState={updateState}
+            />
           </fieldset>
+
           <fieldset id="cost">
             <legend>Cost</legend>
-            <div className="inputGroup">
+            <div className="inputGroup" info="cast_cost_description">
               <label htmlFor="cast_cost_description" className="leftLabel">
                 Description
               </label>
@@ -316,10 +296,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
                 type="text"
                 id="cast_cost_description"
                 name="cast_cost_description"
+                value={values?.cast_cost_description || ""}
                 onChange={handleChange}
               />
             </div>
-            <div className="inputGroup">
+            <div className="inputGroup" info="cast_cost_value_cp">
               <label htmlFor="cast_cost_value_cp" className="leftLabel">
                 Value (cp)
               </label>
@@ -327,11 +308,13 @@ const FoundationForm = ({ values, update, onSubmit }) => {
                 type="number"
                 id="cast_cost_value_cp"
                 name="cast_cost_value_cp"
+                value={values?.cast_cost_value_cp || "0"}
                 min="0"
                 onChange={handleChange}
               />
             </div>
           </fieldset>
+
           <div className="inputGroup">
             <label htmlFor="cast_requirements" className="leftLabel">
               Requirements
@@ -341,7 +324,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="cast_requirements"
               rows="4"
               cols="50"
+              value={values?.cast_requirements || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("cast_requirements")}
             ></textarea>
           </div>
           <div className="inputGroup">
@@ -353,12 +338,15 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="cast_trigger"
               rows="4"
               cols="50"
+              value={values?.cast_trigger || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("cast_trigger")}
             ></textarea>
           </div>
         </div>
       </fieldset>
 
+      {/*
       <div className="inputGroup">
         <label htmlFor="range" className="leftLabel">
           Range
