@@ -691,7 +691,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup" info="">
+        <div className="inputGroup" info="damage_die_size">
           <label htmlFor="damage_die_size" className="leftLabel">
             Die Size
           </label>
@@ -709,7 +709,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="20">d20</option>
           </select>
         </div>
-        <div className="inputGroup" info="">
+        <div className="inputGroup" info="damage_types">
           <label htmlFor="damage_types" className="leftLabel">
             Damage Types
           </label>
