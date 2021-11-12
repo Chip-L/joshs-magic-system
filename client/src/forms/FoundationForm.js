@@ -245,6 +245,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </div>
       </fieldset>
       */}
+
       <fieldset id="cast">
         <legend>Cast</legend>
         <div>
@@ -315,7 +316,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             </div>
           </fieldset>
 
-          <div className="inputGroup">
+          <div className="inputGroup" info="cast_requirements">
             <label htmlFor="cast_requirements" className="leftLabel">
               Requirements
             </label>
@@ -329,7 +330,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               onBlur={() => handleBlur("cast_requirements")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="cast_trigger">
             <label htmlFor="cast_trigger" className="leftLabel">
               Trigger
             </label>
