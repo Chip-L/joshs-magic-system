@@ -14,10 +14,13 @@ const AddSpellPage = () => {
   return (
     <>
       <Title>Add Spell</Title>
-      <Form onSubmit={handleSubmit}>
-        <FoundationForm values={foundationState} update={setFoundationState} />
-        <Button type="submit" value="Submit" />
-      </Form>
+      <FoundationForm
+        values={foundationState}
+        update={setFoundationState}
+        onSubmit={handleSubmit}
+      />
+      {/* <HeightenedForm ...>  // <-- will be propegated in to a different table */}
+      {/* <CastForm ...> // <-- will be propegated in to a different table */}
       <p>{JSON.stringify(foundationState)}</p>
     </>
   );

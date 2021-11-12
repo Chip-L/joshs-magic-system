@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
+// import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
+
+import { magicTraits } from "../lists/magicTraits";
+import { getSelectedValues, getOccurances } from "../utils/utilities";
+import "../pages/AddSpellPageStyle.css";
 
 /**
  * displays the spell Foundation form. State is tracked in the parent. If values are passed in, they should be specifically for the foundation.
@@ -7,72 +11,824 @@ import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
  * values = foundation.*
  * update = function used to set the state.
  */
-const FoundationForm = ({ values, update }) => {
+const FoundationForm = ({ values, update, onSubmit }) => {
   // const [foundationState, setFoundationState] = useState();
   const handleChange = (event) => {
     const { name, value, type } = event.target;
-    const foundation = { ...values.foundation };
     let newValue = value;
 
-    if (type === "checkbox") {
-      console.log("isChecked:", event.target.checked);
-      newValue = event.target.checked ? value : "";
-    }
+    console.log(event.target);
 
-    foundation[name] = newValue;
+    switch (type) {
+      case "number":
+        newValue = parseInt(value);
+        break;
+      case "select-multiple":
+        newValue = getSelectedValues(event.target.id);
+        break;
+    }
 
     update({
       ...values,
-      foundation,
+      [name]: newValue,
     });
   };
 
+  console.log(magicTraits);
+
   return (
-    <Section className="foundation">
-      <LabelGroup>
-        <Label htmlFor="spellName">Spell Name</Label>
-        <Control
+    <form action="" onSubmit={onSubmit} name="foundationForm">
+      <div className="inputGroup">
+        <label htmlFor="spellname" className="leftLabel">
+          Name
+        </label>
+        <input
           type="text"
-          required
-          id="spellName"
-          name="spellName"
-          value={values.spellName}
+          id="spellname"
+          name="spellname"
+          placeholder="TEMPLATE - P2e"
+          value={values?.spellname || ""}
           onChange={handleChange}
         />
-      </LabelGroup>
-      <LabelGroup>
-        <Label>Mana</Label>
-        <Control
-          type="integer"
-          required
-          id="mana"
+      </div>
+      <div className="inputGroup">
+        <label htmlFor="mana" className="leftLabel">
+          Mana
+        </label>
+        <input
+          type="number"
           name="mana"
-          value={values.mana}
+          id="mana"
+          value={values?.mana || "0"}
+          min="0"
           onChange={handleChange}
+          required
         />
-      </LabelGroup>
-      <LabelGroup>
-        <Label>Traits</Label>
-      </LabelGroup>
-      <LabelGroup>
-        <Label>Traditions</Label>
-        <Label htmlFor="Arcane">Arcane</Label>
-        <Control
+      </div>
+
+      <fieldset id="traits" name="traits">
+        <legend>Traits</legend>
+        <div className="inputGroup">
+          <label htmlFor="traits_rarity" className="leftLabel">
+            Rarity
+          </label>
+          <select
+            name="traits_rarity"
+            id="rarity"
+            defaultValue={"Common"}
+            onChange={handleChange}
+          >
+            <option value="Common">Common</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Rare">Rare</option>
+            <option value="Unique">Unique</option>
+          </select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="traits_difficulty" className="leftLabel">
+            Difficulty
+          </label>
+          <select
+            name="traits_difficulty"
+            id="difficulty"
+            onChange={handleChange}
+            defaultValue={"A"}
+          >
+            <option value="IE">Incredibly Easy</option>
+            <option value="VE">Very Easy</option>
+            <option value="E">Easy</option>
+            <option value="A">Average</option>
+            <option value="H">Hard</option>
+            <option value="VH">Very Hard</option>
+            <option value="IH">Incredibly Hard</option>
+          </select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="traits_list" className="leftLabel">
+            List
+          </label>
+          <select
+            name="traits_list"
+            id="traits_list"
+            multiple
+            onChange={handleChange}
+          >
+            {magicTraits.map((item) => (
+              <option value={item}>{item}</option>
+            ))}
+          </select>
+        </div>
+      </fieldset>
+
+      {/*
+      <fieldset id="traditions">
+        <legend>Traditions</legend>
+        <div className="inputGroup">
+          <input
+            type="checkbox"
+            id="traditions_arcane"
+            name="traditions"
+            value="arcane"
+          />
+          <label htmlFor="traditions_arcane" className="rightLabel">
+            Arcane
+          </label>
+        </div>
+        <div className="inputGroup">
+          <input
+            type="checkbox"
+            id="traditions_divine"
+            name="traditions"
+            value="divine"
+          />
+          <label htmlFor="traditions_divine" className="rightLabel">
+            Divine
+          </label>
+        </div>
+        <div className="inputGroup">
+          <input
+            type="checkbox"
+            id="traditions_occult"
+            name="traditions"
+            value="occult"
+          />
+          <label htmlFor="traditions_occult" className="rightLabel">
+            Occult
+          </label>
+        </div>
+        <div className="inputGroup">
+          <input
+            type="checkbox"
+            id="traditions_primal"
+            name="traditions"
+            value="primal"
+          />
+          <label htmlFor="traditions_primal" className="rightLabel">
+            Primal
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset id="features">
+        <legend>Features</legend>
+        <div className="inputGroup">
+          <label htmlFor="features_deities" className="leftLabel">
+            Deities
+          </label>
+          <select
+            name="features_deities"
+            id="features_deities"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_domains" className="leftLabel">
+            Domains
+          </label>
+          <select
+            name="features_domains"
+            id="features_domains"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_mysteries" className="leftLabel">
+            Mysteries
+          </label>
+          <select
+            name="features_mysteries"
+            id="features_mysteries"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_revelations" className="leftLabel">
+            Revelations
+          </label>
+          <select
+            name="features_revelations"
+            id="features_revelations"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_bloodlines" className="leftLabel">
+            Bloodlines
+          </label>
+          <select
+            name="features_bloodlines"
+            id="features_bloodlines"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_patrons" className="leftLabel">
+            Patrons
+          </label>
+          <select
+            name="features_patrons"
+            id="features_patrons"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_lessons" className="leftLabel">
+            Lessons
+          </label>
+          <select
+            name="features_lessons"
+            id="features_lessons"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="features_schools" className="leftLabel">
+            Schools
+          </label>
+          <select
+            name="features_schools"
+            id="features_schools"
+            onChange={handleChange}
+            multiple
+          ></select>
+        </div>
+      </fieldset>
+
+      <fieldset id="cast">
+        <legend>Cast</legend>
+        <div>
+          {/* <!-- this div provides extra spacing around the input fileds. most notably it puts the other fieldsets on their own lines--> */}
+      {/*          <div className="inputGroup">
+            <label htmlFor="cast_actions" className="leftLabel">
+              Actions
+            </label>
+            <input
+              type="number"
+              id="cast_actions"
+              name="cast_actions"
+              value="1"
+              min="0"
+              max="3"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inputGroup">
+            <input
+              type="checkbox"
+              id="cast_reaction"
+              name="cast_reaction"
+              value="reaction"
+              onChange={handleChange}
+            />
+            <label htmlFor="cast_reaction" className="rightLabel">
+              Can be cast as a reaction
+            </label>
+          </div>
+          <fieldset id="components">
+            <legend>Components</legend>
+            <div className="inputGroup">
+              <input
+                type="checkbox"
+                id="cast_components_focus"
+                name="cast_components"
+                value="focus"
+              />
+              <label htmlFor="cast_components_focus" className="rightLabel">
+                Focus
+              </label>
+            </div>
+            <div className="inputGroup">
+              <input
+                type="checkbox"
+                id="cast_components_material"
+                name="cast_components"
+                value="material"
+              />
+              <label htmlFor="cast_components_material" className="rightLabel">
+                Material
+              </label>
+            </div>
+            <div className="inputGroup">
+              <input
+                type="checkbox"
+                id="cast_components_somatic"
+                name="cast_components"
+                value="somatic"
+              />
+              <label htmlFor="cast_components_somatic" className="rightLabel">
+                Somatic
+              </label>
+            </div>
+            <div className="inputGroup">
+              <input
+                type="checkbox"
+                id="cast_components_verbal"
+                name="cast_components"
+                value="verbal"
+              />
+              <label htmlFor="cast_components_verbal" className="rightLabel">
+                Verbal
+              </label>
+            </div>
+          </fieldset>
+          <fieldset id="cost">
+            <legend>Cost</legend>
+            <div className="inputGroup">
+              <label htmlFor="cast_cost_description" className="leftLabel">
+                Description
+              </label>
+              <input
+                type="text"
+                id="cast_cost_description"
+                name="cast_cost_description"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="inputGroup">
+              <label htmlFor="cast_cost_value_cp" className="leftLabel">
+                Value (cp)
+              </label>
+              <input
+                type="number"
+                id="cast_cost_value_cp"
+                name="cast_cost_value_cp"
+                min="0"
+                onChange={handleChange}
+              />
+            </div>
+          </fieldset>
+          <div className="inputGroup">
+            <label htmlFor="cast_requirements" className="leftLabel">
+              Requirements
+            </label>
+            <textarea
+              id="cast_requirements"
+              name="cast_requirements"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="cast_trigger" className="leftLabel">
+              Trigger
+            </label>
+            <textarea
+              id="cast_trigger"
+              name="cast_trigger"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <div className="inputGroup">
+        <label htmlFor="range" className="leftLabel">
+          Range
+        </label>
+        <input type="text" id="range" name="range" onChange={handleChange} />
+      </div>
+
+      <fieldset id="area">
+        <legend>Area</legend>
+        <div className="inputGroup">
+          <label htmlFor="area_number" className="leftLabel">
+            Number
+          </label>
+          <input
+            type="number"
+            id="area_number"
+            name="area_number"
+            value="1"
+            min="1"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="area_size" className="leftLabel">
+            Size
+          </label>
+          <input
+            type="number"
+            id="area_size"
+            name="area_size"
+            min="0"
+            onChange={handleChange}
+          />
+        </div>
+        {/* <!-- "comment_shape": "cube side, cylinder radius/height=4r, sphere radius" --> */}
+      {/*        <fieldset id="shape">
+          <legend>Shape</legend>
+          <div className="inputGroup">
+            <input
+              type="radio"
+              id="area_shape_cube"
+              name="shape"
+              value="cube"
+              checked
+            />
+            <label htmlFor="area_shape_cube" className="rightLabel toolTip">
+              Cube<span className="toolTipText">size = length of a side</span>
+            </label>
+          </div>
+          <div className="inputGroup">
+            <input
+              type="radio"
+              id="area_shape_cylinder"
+              name="shape"
+              value="cylinder"
+            />
+            <label htmlFor="area_shape_cylinder" className="rightLabel toolTip">
+              Cylinder
+              <span className="toolTipText">
+                size = radius of the cylinder and 1/4 the height
+              </span>
+            </label>
+          </div>
+          <div className="inputGroup">
+            <input
+              type="radio"
+              id="area_shape_sphere"
+              name="shape"
+              value="sphere"
+            />
+            <label htmlFor="area_shape_sphere" className="rightLabel toolTip">
+              Sphere<span className="toolTipText">size = radius of the sphere</span>
+            </label>
+          </div>
+        </fieldset>
+      </fieldset>
+
+      <fieldset id="targets">
+        <legend>Targets</legend>
+        <div className="inputGroup">
+          <label htmlFor="number_of_targets" className="leftLabel">
+            Number of Targets
+          </label>
+          <input
+            type="number"
+            id="number_of_targets"
+            name="number_of_targets"
+            value="1"
+            min="0"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="targets_description" className="leftLabel">
+            Description of the targets
+          </label>
+          <textarea
+            id="targets_description"
+            name="targets_description"
+            rows="4"
+            cols="50"
+            value="describe the target conditions"
+            onChange={handleChange}
+          ></textarea>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="targets_proximity" className="leftLabel">
+            Proximity
+          </label>
+          <input
+            type="number"
+            id="targets_proximity"
+            name="targets_proximity"
+            min="0"
+            onChange={handleChange}
+          />
+        </div>
+      </fieldset>
+
+      {/* <!-- isn't attack a trait? I'm not sure what this is for --> */}
+      {/*      <div className="inputGroup">
+        <input
           type="checkbox"
-          // checked={
-          //   values.traditions.arcane === undefined
-          //     ? values.tradition.arcane
-          //     : false
-          // }
-          name="traditions.arcane"
-          value="arcane"
+          id="attack"
+          name="attack"
+          value="attack"
           onChange={handleChange}
         />
-        <Label htmlFor="Divine">Divine</Label>
-        <Label htmlFor="Occult">Occult</Label>
-        <Label htmlFor="Primal">Primal</Label>
-      </LabelGroup>
-    </Section>
+        <label htmlFor="attack" className="rightLabel">
+          Attack
+        </label>
+      </div>
+
+      <fieldset id="saving_throw">
+        <legend>Saving Throw</legend>
+        <div className="inputGroup">
+          <input
+            type="checkbox"
+            id="saving_throw_basic"
+            name="saving_throw_basic"
+            value="basic"
+            checked
+          />
+          <label htmlFor="saving_throw_basic" className="rightLabel">
+            Basic
+          </label>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="saving_throw_type" className="leftLabel">
+            Type
+          </label>
+          <input
+            type="text"
+            id="saving_throw_type"
+            name="saving_throw_type"
+            onChange={handleChange}
+          />
+        </div>
+
+        <fieldset id="critcal_succcess">
+          <legend>Critcal Succcess</legend>
+          <div className="inputGroup">
+            <label htmlFor="critcal_succcess_description" className="leftLabel">
+              Description
+            </label>
+            <textarea
+              id="critcal_succcess_description"
+              name="critcal_succcess_description"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="critcal_succcess_duration" className="leftLabel">
+              Duration
+            </label>
+            <input
+              type="number"
+              id="critcal_succcess_duration"
+              name="critcal_succcess_duration"
+              value="0"
+              min="0"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="critcal_succcess_temp_immune" className="leftLabel">
+              Temp_Immune
+            </label>
+            <input
+              type="text"
+              id="critcal_succcess_temp_immune"
+              name="critcal_succcess_temp_immune"
+              onChange={handleChange}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset id="succcess">
+          <legend>Succcess</legend>
+          <div className="inputGroup">
+            <label htmlFor="succcess_description" className="leftLabel">
+              Description
+            </label>
+            <textarea
+              id="succcess_description"
+              name="succcess_description"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="succcess_duration" className="leftLabel">
+              Duration
+            </label>
+            <input
+              type="number"
+              id="succcess_duration"
+              name="succcess_duration"
+              value="0"
+              min="0"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="succcess_temp_immune" className="leftLabel">
+              Temp_Immune
+            </label>
+            <input
+              type="text"
+              id="succcess_temp_immune"
+              name="succcess_temp_immune"
+              onChange={handleChange}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset id="failure">
+          <legend>Failure</legend>
+          <div className="inputGroup">
+            <label htmlFor="failure_description" className="leftLabel">
+              Description
+            </label>
+            <textarea
+              id="failure_description"
+              name="failure_description"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="failure_duration" className="leftLabel">
+              Duration
+            </label>
+            <input
+              type="number"
+              id="failure_duration"
+              name="failure_duration"
+              value="0"
+              min="0"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="failure_temp_immune" className="leftLabel">
+              Temp_Immune
+            </label>
+            <input
+              type="text"
+              id="failure_temp_immune"
+              name="failure_temp_immune"
+              onChange={handleChange}
+            />
+          </div>
+        </fieldset>
+
+        <fieldset id="critical_failure">
+          <legend>Critical Failure</legend>
+          <div className="inputGroup">
+            <label htmlFor="critical_failure_description" className="leftLabel">
+              Description
+            </label>
+            <textarea
+              id="critical_failure_description"
+              name="critical_failure_description"
+              rows="4"
+              cols="50"
+              onChange={handleChange}
+            ></textarea>
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="critical_failure_duration" className="leftLabel">
+              Duration
+            </label>
+            <input
+              type="number"
+              id="critical_failure_duration"
+              name="critical_failure_duration"
+              value="0"
+              min="0"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="critical_failure_temp_immune" className="leftLabel">
+              Temp_Immune
+            </label>
+            <input
+              type="text"
+              id="critical_failure_temp_immune"
+              name="critical_failure_temp_immune"
+              onChange={handleChange}
+            />
+          </div>
+        </fieldset>
+      </fieldset>
+
+      <fieldset id="damage">
+        <legend>Damage</legend>
+        <div className="inputGroup">
+          <label htmlFor="damage_num_dice" className="leftLabel">
+            Num Dice
+          </label>
+          <input
+            type="number"
+            id="damage_num_dice"
+            name="damage_num_dice"
+            value="1"
+            min="0"
+            onChange={handleChange}
+          />
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="damage_die_size" className="leftLabel">
+            Die Size
+          </label>
+          <select
+            name="damage_die_size"
+            id="damage_die_size"
+            onChange={handleChange}
+          >
+            <option value="4">d4</option>
+            <option value="6">d6</option>
+            <option value="8">d8</option>
+            <option value="10">d10</option>
+            <option value="12">d12</option>
+            <option value="20">d20</option>
+          </select>
+        </div>
+        <div className="inputGroup">
+          <label htmlFor="damage_types" className="leftLabel">
+            Damage Types
+          </label>
+          <select
+            name="damage_types"
+            id="damage_types"
+            onChange={handleChange}
+            multiple
+          >
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset id="duration">
+        <legend>Duration</legend>
+        <div className="inputGroup">
+          <label htmlFor="duration_rounds" className="leftLabel">
+            Rounds
+          </label>
+          <input
+            type="number"
+            id="duration_rounds"
+            name="duration_rounds"
+            value="1"
+            min="0"
+            max="3"
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="inputGroup">
+          <label htmlFor="dismiss" className="leftLabel">
+            Dismiss
+          </label>
+          <input
+            type="text"
+            id="dismiss"
+            name="dismiss"
+            onChange={handleChange}
+          />
+        </div>
+
+        <fieldset id="sustainListFieldset">
+          <button className="toolTip" id="addSustainAction">
+            Add Sustain Action
+            <span className="toolTipText">
+              <div className="code text">
+                "sustain":{" "}
+                {`[ <br />
+                <div>
+                  {"actions": 1, "description": "", "mana": 4},<br />
+                  {"actions": 2, "description": "", "mana": 2}, <br />
+                  {"actions": 3,"description": "", "mana": 0}
+                </div>
+                ]`}
+              </div>
+            </span>
+          </button>
+          <legend>Sustain Actions</legend>
+          <ul id="sustainList"></ul>
+          <p className="error" id="sustainError"></p>
+        </fieldset>
+      </fieldset>
+
+      <div className="inputGroup">
+        <label htmlFor="effect" className="leftLabel">
+          Effect
+        </label>
+        <textarea
+          id="effect"
+          name="effect"
+          rows="4"
+          cols="50"
+          value={values.name ? values.name : ""}
+          onChange={handleChange}
+        ></textarea>
+      </div>
+              */}
+
+      <button type="submit">Submit</button>
+    </form>
   );
 };
 

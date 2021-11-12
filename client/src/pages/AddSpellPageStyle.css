@@ -1,0 +1,135 @@
+@font-face {
+  font-family: "linotype-sabon";
+  src: url("../fonts/Sabon-Font/Sabon_Roman.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "linotype-sabon";
+  src: url("../fonts/Sabon-Font/Sabon_Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "linotype-sabon";
+  src: url("../fonts/Sabon-Font/Sabon_BoldItalic.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "linotype-sabon";
+  src: url("../fonts/Sabon-Font/Sabon_Italic.ttf") format("truetype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "taroca";
+  src: url("../fonts/Taroca-Regular/Taroca_Regular.ttf") format("truetype");
+}
+
+*,
+::after,
+::before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #edece8;
+  font-size: 1.6rem;
+  font-family: "linotype-sabon", "Open Sans", sans-serif;
+}
+
+h1 {
+  color: #5d0000;
+  font-family: taroca;
+  font-weight: normal;
+}
+
+h2 {
+  color: #002564;
+  font-family: taroca;
+  font-weight: normal;
+}
+
+form {
+  padding: 0 2rem;
+}
+
+fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-flex: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+fieldset .inputGroup {
+  padding: 0 1rem;
+}
+
+.leftLabel::after {
+  content: ":";
+  margin-right: 0.5rem;
+}
+
+.righttLabel::before {
+  margin-right: 0.25rem;
+}
+
+.inputGroup {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+label {
+  vertical-align: top;
+}
+
+.error {
+  color: red;
+}
+
+.toolTip {
+  position: relative;
+}
+
+.toolTip .toolTipText {
+  visibility: hidden;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  white-space: nowrap;
+  background-color: #5d0000;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  /* Position the tooltip */
+  position: absolute;
+  top: 1.75rem;
+  left: 0;
+  z-index: 1;
+}
+
+.toolTip:hover .toolTipText {
+  visibility: visible;
+}
+
+.toolTip .code {
+  text-align: left;
+}
+
+.text div {
+  margin-left: 1rem;
+}
