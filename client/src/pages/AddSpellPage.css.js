@@ -52,7 +52,8 @@ export const Section = styled.section`
 `;
 
 export const Side = styled.section`
-  max-width: 800px;
+  width: 800px;
+  overflow: auto;
 `;
 
 export const Title = styled.h2`
