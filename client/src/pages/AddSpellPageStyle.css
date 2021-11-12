@@ -27,23 +27,25 @@
   src: url("../fonts/Taroca-Regular/Taroca_Regular.ttf") format("truetype");
 }
 
+/*
 *,
 ::after,
 ::before {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+*/
 
 .hidden {
   visibility: hidden;
 }
 
-html {
+/* html {
   font-size: 62.5%;
 }
-
-body {
-  background-color: #edece8;
+*/
+form {
+  background-color: "blue"; /* #edece8;*/
   font-size: 1.6rem;
   font-family: "linotype-sabon", "Open Sans", sans-serif;
 }

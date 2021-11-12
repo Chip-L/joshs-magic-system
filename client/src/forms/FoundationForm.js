@@ -5,6 +5,7 @@ import CheckboxGroup from "../components/CheckboxGroup";
 import { magicTraits } from "../lists/magicTraits";
 import { getSelectedValues } from "../utils/utilities";
 import "../pages/AddSpellPageStyle.css";
+import RadioButtonGroup from "../components/RadioButtonGroup";
 
 /**
  * displays the spell Foundation form. State is tracked in the parent. If values are passed in, they should be specifically for the foundation.
@@ -14,11 +15,22 @@ import "../pages/AddSpellPageStyle.css";
  */
 const FoundationForm = ({ values, update, onSubmit }) => {
   // const [foundationState, setFoundationState] = useState();
+  const updateState = (name, newValue) => {
+    update({
+      ...values,
+      [name]: newValue,
+    });
+  };
+
+  const handleBlur = (name) => {
+    if (name in values) {
+      updateState(name, values[name].trim());
+    }
+  };
+
   const handleChange = (event) => {
     const { name, value, type } = event.target;
-    let newValue = value;
-
-    console.log(event.target);
+    let newValue;
 
     switch (type) {
       case "number":
@@ -27,15 +39,19 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       case "select-multiple":
         newValue = getSelectedValues(event.target.id);
         break;
-
+      case "checkbox":
+        console.log(name, " is now ", event.target.checked);
+        newValue = event.target.checked;
+        break;
+      case "textarea":
+        newValue = value;
+        break;
       default:
+        newValue = value;
         break;
     }
 
-    update({
-      ...values,
-      [name]: newValue,
-    });
+    updateState(name, newValue);
   };
 
   // console.log(magicTraits);
@@ -131,15 +147,16 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         <CheckboxGroup
           name="traditions"
           valueList={["arcane", "divine", "occult", "primal"]}
-          values={values}
-          update={update}
+          state={values}
+          updateState={updateState}
         />
       </fieldset>
 
       {/*
+      // check https://www.w3schools.com/jsref/event_ondragleave.asp for some ideas on better way to do these lists (drag drop)
       <fieldset id="features">
         <legend>Features</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_deities" className="leftLabel">
             Deities
           </label>
@@ -150,7 +167,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_domains" className="leftLabel">
             Domains
           </label>
@@ -161,7 +178,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_mysteries" className="leftLabel">
             Mysteries
           </label>
@@ -172,7 +189,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_revelations" className="leftLabel">
             Revelations
           </label>
@@ -183,7 +200,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_bloodlines" className="leftLabel">
             Bloodlines
           </label>
@@ -194,7 +211,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_patrons" className="leftLabel">
             Patrons
           </label>
@@ -205,7 +222,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_lessons" className="leftLabel">
             Lessons
           </label>
@@ -216,7 +233,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="features_schools" className="leftLabel">
             Schools
           </label>
@@ -228,12 +245,13 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           ></select>
         </div>
       </fieldset>
+      */}
 
       <fieldset id="cast">
         <legend>Cast</legend>
         <div>
           {/* <!-- this div provides extra spacing around the input fileds. most notably it puts the other fieldsets on their own lines--> */}
-      {/*          <div className="inputGroup">
+          <div className="inputGroup" info="cast_actions">
             <label htmlFor="cast_actions" className="leftLabel">
               Actions
             </label>
@@ -241,18 +259,19 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="number"
               id="cast_actions"
               name="cast_actions"
-              value="1"
+              value={values?.cast_actions || "1"}
               min="0"
               max="3"
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="cast_reaction">
             <input
               type="checkbox"
               id="cast_reaction"
               name="cast_reaction"
-              value="reaction"
+              checked={values?.cast_reaction}
+              // value={values?.cast_reaction || "reaction"}
               onChange={handleChange}
             />
             <label htmlFor="cast_reaction" className="rightLabel">
@@ -261,54 +280,17 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           </div>
           <fieldset id="components">
             <legend>Components</legend>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_focus"
-                name="cast_components"
-                value="focus"
-              />
-              <label htmlFor="cast_components_focus" className="rightLabel">
-                Focus
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_material"
-                name="cast_components"
-                value="material"
-              />
-              <label htmlFor="cast_components_material" className="rightLabel">
-                Material
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_somatic"
-                name="cast_components"
-                value="somatic"
-              />
-              <label htmlFor="cast_components_somatic" className="rightLabel">
-                Somatic
-              </label>
-            </div>
-            <div className="inputGroup">
-              <input
-                type="checkbox"
-                id="cast_components_verbal"
-                name="cast_components"
-                value="verbal"
-              />
-              <label htmlFor="cast_components_verbal" className="rightLabel">
-                Verbal
-              </label>
-            </div>
+            <CheckboxGroup
+              name="cast_components"
+              valueList={["focus", "material", "somatic", "verbal"]}
+              state={values}
+              updateState={updateState}
+            />
           </fieldset>
+
           <fieldset id="cost">
             <legend>Cost</legend>
-            <div className="inputGroup">
+            <div className="inputGroup" info="cast_cost_description">
               <label htmlFor="cast_cost_description" className="leftLabel">
                 Description
               </label>
@@ -316,10 +298,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
                 type="text"
                 id="cast_cost_description"
                 name="cast_cost_description"
+                value={values?.cast_cost_description || ""}
                 onChange={handleChange}
               />
             </div>
-            <div className="inputGroup">
+            <div className="inputGroup" info="cast_cost_value_cp">
               <label htmlFor="cast_cost_value_cp" className="leftLabel">
                 Value (cp)
               </label>
@@ -327,12 +310,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
                 type="number"
                 id="cast_cost_value_cp"
                 name="cast_cost_value_cp"
+                value={values?.cast_cost_value_cp || "0"}
                 min="0"
                 onChange={handleChange}
               />
             </div>
           </fieldset>
-          <div className="inputGroup">
+
+          <div className="inputGroup" info="cast_requirements">
             <label htmlFor="cast_requirements" className="leftLabel">
               Requirements
             </label>
@@ -341,10 +326,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="cast_requirements"
               rows="4"
               cols="50"
+              value={values?.cast_requirements || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("cast_requirements")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="cast_trigger">
             <label htmlFor="cast_trigger" className="leftLabel">
               Trigger
             </label>
@@ -353,22 +340,30 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="cast_trigger"
               rows="4"
               cols="50"
+              value={values?.cast_trigger || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("cast_trigger")}
             ></textarea>
           </div>
         </div>
       </fieldset>
 
-      <div className="inputGroup">
+      <div className="inputGroup" info="range">
         <label htmlFor="range" className="leftLabel">
           Range
         </label>
-        <input type="text" id="range" name="range" onChange={handleChange} />
+        <input
+          type="text"
+          id="range"
+          name="range"
+          value={values?.range || ""}
+          onChange={handleChange}
+        />
       </div>
 
       <fieldset id="area">
         <legend>Area</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="area_number">
           <label htmlFor="area_number" className="leftLabel">
             Number
           </label>
@@ -376,12 +371,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="area_number"
             name="area_number"
-            value="1"
             min="1"
+            value={values?.area_number || "1"}
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="area_size">
           <label htmlFor="area_size" className="leftLabel">
             Size
           </label>
@@ -389,56 +384,40 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="area_size"
             name="area_size"
+            value={values?.area_size || ""}
             min="0"
             onChange={handleChange}
           />
         </div>
         {/* <!-- "comment_shape": "cube side, cylinder radius/height=4r, sphere radius" --> */}
-      {/*        <fieldset id="shape">
+        <fieldset id="shape">
           <legend>Shape</legend>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_cube"
-              name="shape"
-              value="cube"
-              checked
-            />
-            <label htmlFor="area_shape_cube" className="rightLabel toolTip">
-              Cube<span className="toolTipText">size = length of a side</span>
-            </label>
-          </div>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_cylinder"
-              name="shape"
-              value="cylinder"
-            />
-            <label htmlFor="area_shape_cylinder" className="rightLabel toolTip">
-              Cylinder
-              <span className="toolTipText">
-                size = radius of the cylinder and 1/4 the height
-              </span>
-            </label>
-          </div>
-          <div className="inputGroup">
-            <input
-              type="radio"
-              id="area_shape_sphere"
-              name="shape"
-              value="sphere"
-            />
-            <label htmlFor="area_shape_sphere" className="rightLabel toolTip">
-              Sphere<span className="toolTipText">size = radius of the sphere</span>
-            </label>
-          </div>
+          <RadioButtonGroup
+            name="shape"
+            valueList={[
+              {
+                value: "cube",
+                toolTipText: "size = length of a side",
+              },
+              {
+                value: "cylinder",
+                toolTip: "size = radius of the cylinder and 1/4 the height",
+                default: true,
+              },
+              {
+                value: "sphere",
+                toolTip: "size = radius of the sphere",
+              },
+            ]}
+            state={values}
+            updateState={updateState}
+          />
         </fieldset>
       </fieldset>
 
       <fieldset id="targets">
         <legend>Targets</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="number_of_targets">
           <label htmlFor="number_of_targets" className="leftLabel">
             Number of Targets
           </label>
@@ -446,12 +425,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="number_of_targets"
             name="number_of_targets"
-            value="1"
+            value={values?.number_of_targets || "1"}
             min="0"
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="targets_description">
           <label htmlFor="targets_description" className="leftLabel">
             Description of the targets
           </label>
@@ -460,11 +439,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             name="targets_description"
             rows="4"
             cols="50"
-            value="describe the target conditions"
+            value={
+              values?.targets_description || "describe the target conditions"
+            }
             onChange={handleChange}
+            onBlur={() => handleBlur("targets_description")}
           ></textarea>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="targets_proximity">
           <label htmlFor="targets_proximity" className="leftLabel">
             Proximity
           </label>
@@ -472,6 +454,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="targets_proximity"
             name="targets_proximity"
+            value={values?.targets_proximity || "1"}
             min="0"
             onChange={handleChange}
           />
@@ -479,12 +462,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       </fieldset>
 
       {/* <!-- isn't attack a trait? I'm not sure what this is for --> */}
-      {/*      <div className="inputGroup">
+      <div className="inputGroup" info="attack">
         <input
           type="checkbox"
           id="attack"
           name="attack"
-          value="attack"
+          checked={values?.attack || false}
           onChange={handleChange}
         />
         <label htmlFor="attack" className="rightLabel">
@@ -494,19 +477,19 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
       <fieldset id="saving_throw">
         <legend>Saving Throw</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="saving_throw_basic">
           <input
             type="checkbox"
             id="saving_throw_basic"
             name="saving_throw_basic"
-            value="basic"
-            checked
+            checked={values?.saving_throw_basic || false}
+            onChange={handleChange}
           />
           <label htmlFor="saving_throw_basic" className="rightLabel">
             Basic
           </label>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="saving_throw_type">
           <label htmlFor="saving_throw_type" className="leftLabel">
             Type
           </label>
@@ -514,13 +497,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="text"
             id="saving_throw_type"
             name="saving_throw_type"
+            value={values?.saving_throw_type || ""}
             onChange={handleChange}
           />
         </div>
 
         <fieldset id="critcal_succcess">
           <legend>Critcal Succcess</legend>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critcal_succcess_description">
             <label htmlFor="critcal_succcess_description" className="leftLabel">
               Description
             </label>
@@ -529,10 +513,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="critcal_succcess_description"
               rows="4"
               cols="50"
+              value={values?.critcal_succcess_description || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("critcal_succcess_description")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critcal_succcess_duration">
             <label htmlFor="critcal_succcess_duration" className="leftLabel">
               Duration
             </label>
@@ -540,12 +526,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="number"
               id="critcal_succcess_duration"
               name="critcal_succcess_duration"
-              value="0"
+              value={values?.critcal_succcess_duration || ""}
               min="0"
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critcal_succcess_temp_immune">
             <label htmlFor="critcal_succcess_temp_immune" className="leftLabel">
               Temp_Immune
             </label>
@@ -553,6 +539,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="text"
               id="critcal_succcess_temp_immune"
               name="critcal_succcess_temp_immune"
+              value={values?.critcal_succcess_temp_immune || ""}
               onChange={handleChange}
             />
           </div>
@@ -560,7 +547,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
         <fieldset id="succcess">
           <legend>Succcess</legend>
-          <div className="inputGroup">
+          <div className="inputGroup" info="succcess_description">
             <label htmlFor="succcess_description" className="leftLabel">
               Description
             </label>
@@ -569,10 +556,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="succcess_description"
               rows="4"
               cols="50"
+              value={values?.succcess_description || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("succcess_description")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="succcess_duration">
             <label htmlFor="succcess_duration" className="leftLabel">
               Duration
             </label>
@@ -582,10 +571,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="succcess_duration"
               value="0"
               min="0"
+              value={values?.succcess_duration || ""}
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="succcess_temp_immune">
             <label htmlFor="succcess_temp_immune" className="leftLabel">
               Temp_Immune
             </label>
@@ -593,6 +583,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="text"
               id="succcess_temp_immune"
               name="succcess_temp_immune"
+              value={values?.succcess_temp_immune || ""}
               onChange={handleChange}
             />
           </div>
@@ -600,7 +591,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
         <fieldset id="failure">
           <legend>Failure</legend>
-          <div className="inputGroup">
+          <div className="inputGroup" info="failure_description">
             <label htmlFor="failure_description" className="leftLabel">
               Description
             </label>
@@ -609,10 +600,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="failure_description"
               rows="4"
               cols="50"
+              value={values?.failure_description || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("failure_description")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="failure_duration">
             <label htmlFor="failure_duration" className="leftLabel">
               Duration
             </label>
@@ -620,12 +613,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="number"
               id="failure_duration"
               name="failure_duration"
-              value="0"
+              value={values?.failure_duration || ""}
               min="0"
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="failure_temp_immune">
             <label htmlFor="failure_temp_immune" className="leftLabel">
               Temp_Immune
             </label>
@@ -633,6 +626,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="text"
               id="failure_temp_immune"
               name="failure_temp_immune"
+              value={values?.failure_temp_immune || ""}
               onChange={handleChange}
             />
           </div>
@@ -640,7 +634,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
         <fieldset id="critical_failure">
           <legend>Critical Failure</legend>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critical_failure_description">
             <label htmlFor="critical_failure_description" className="leftLabel">
               Description
             </label>
@@ -649,10 +643,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               name="critical_failure_description"
               rows="4"
               cols="50"
+              value={values?.critical_failure_description || ""}
               onChange={handleChange}
+              onBlur={() => handleBlur("critical_failure_description")}
             ></textarea>
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critical_failure_duration">
             <label htmlFor="critical_failure_duration" className="leftLabel">
               Duration
             </label>
@@ -660,12 +656,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="number"
               id="critical_failure_duration"
               name="critical_failure_duration"
-              value="0"
+              value={values?.critical_failure_duration || ""}
               min="0"
               onChange={handleChange}
             />
           </div>
-          <div className="inputGroup">
+          <div className="inputGroup" info="critical_failure_temp_immune">
             <label htmlFor="critical_failure_temp_immune" className="leftLabel">
               Temp_Immune
             </label>
@@ -673,6 +669,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
               type="text"
               id="critical_failure_temp_immune"
               name="critical_failure_temp_immune"
+              value={values?.critical_failure_temp_immune || ""}
               onChange={handleChange}
             />
           </div>
@@ -681,7 +678,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
       <fieldset id="damage">
         <legend>Damage</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="damage_num_dice">
           <label htmlFor="damage_num_dice" className="leftLabel">
             Num Dice
           </label>
@@ -689,18 +686,19 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="damage_num_dice"
             name="damage_num_dice"
-            value="1"
+            value={values?.damage_num_dice || ""}
             min="0"
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="damage_die_size" className="leftLabel">
             Die Size
           </label>
           <select
             name="damage_die_size"
             id="damage_die_size"
+            defaultValue="6"
             onChange={handleChange}
           >
             <option value="4">d4</option>
@@ -711,7 +709,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             <option value="20">d20</option>
           </select>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="">
           <label htmlFor="damage_types" className="leftLabel">
             Damage Types
           </label>
@@ -721,6 +719,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             onChange={handleChange}
             multiple
           >
+            <option value="0">Add values</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -731,7 +730,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
       <fieldset id="duration">
         <legend>Duration</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="duration_rounds">
           <label htmlFor="duration_rounds" className="leftLabel">
             Rounds
           </label>
@@ -739,14 +738,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="duration_rounds"
             name="duration_rounds"
-            value="1"
+            value={values?.duration_rounds || ""}
             min="0"
             max="3"
             onChange={handleChange}
           />
         </div>
 
-        <div className="inputGroup">
+        <div className="inputGroup" info="dismiss">
           <label htmlFor="dismiss" className="leftLabel">
             Dismiss
           </label>
@@ -754,6 +753,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="text"
             id="dismiss"
             name="dismiss"
+            value={values?.dismiss || ""}
             onChange={handleChange}
           />
         </div>
@@ -780,7 +780,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </fieldset>
       </fieldset>
 
-      <div className="inputGroup">
+      <div className="inputGroup" info="effect">
         <label htmlFor="effect" className="leftLabel">
           Effect
         </label>
@@ -789,11 +789,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           name="effect"
           rows="4"
           cols="50"
-          value={values.name ? values.name : ""}
+          value={values?.effect || ""}
           onChange={handleChange}
+          onBlur={() => handleBlur("effect")}
         ></textarea>
       </div>
-              */}
 
       <button type="submit">Submit</button>
     </form>
