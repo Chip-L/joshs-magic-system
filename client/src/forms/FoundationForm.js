@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CheckboxGroup } from "../components/CheckboxGroup";
 // import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
 
 import { magicTraits } from "../lists/magicTraits";
@@ -124,7 +125,8 @@ const FoundationForm = ({ values, update, onSubmit }) => {
 
       <fieldset id="traditions">
         <legend>Traditions</legend>
-        <checkboxGroup
+        <CheckboxGroup
+          name="traditions"
           valueList={["arcane", "divine", "occult", "primal"]}
           values={values}
           update={update}
