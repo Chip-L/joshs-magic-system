@@ -728,10 +728,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </div>
       </fieldset>
 
-      {/*
       <fieldset id="duration">
         <legend>Duration</legend>
-        <div className="inputGroup" info="">
+        <div className="inputGroup" info="duration_rounds">
           <label htmlFor="duration_rounds" className="leftLabel">
             Rounds
           </label>
@@ -739,14 +738,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="duration_rounds"
             name="duration_rounds"
-            value="1"
+            value={values?.duration_rounds || ""}
             min="0"
             max="3"
             onChange={handleChange}
           />
         </div>
 
-        <div className="inputGroup" info="">
+        <div className="inputGroup" info="dismiss">
           <label htmlFor="dismiss" className="leftLabel">
             Dismiss
           </label>
@@ -754,6 +753,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="text"
             id="dismiss"
             name="dismiss"
+            value={values?.dismiss || ""}
             onChange={handleChange}
           />
         </div>
@@ -780,7 +780,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </fieldset>
       </fieldset>
 
-      <div className="inputGroup" info="">
+      <div className="inputGroup" info="effect">
         <label htmlFor="effect" className="leftLabel">
           Effect
         </label>
@@ -789,11 +789,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           name="effect"
           rows="4"
           cols="50"
-          value={values.name ? values.name : ""}
+          value={values?.effect || ""}
           onChange={handleChange}
+          onBlur={() => handleBlur("effect")}
         ></textarea>
       </div>
-              */}
 
       <button type="submit">Submit</button>
     </form>
