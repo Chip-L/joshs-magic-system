@@ -4,20 +4,22 @@ function CheckboxGroup({ name, valueList, values, update }) {
   return (
     <>
       {valueList.map((item) => (
-        // <div className="inputGroup">
-        <p>{item}</p>
-        /* 
+        <div className="inputGroup" key={`${name}_${item}`}>
           <input
             type="checkbox"
-            id="traditions_arcane"
-            name="traditions"
-            value="arcane"
+            id={`${name}_${item}`}
+            name={name}
+            value={item}
+            // key={`${name}_${item}`}
           />
-          <label htmlFor={`traditions_${item}`} className="rightLabel">
+          <label
+            htmlFor={`${name}_${item}`}
+            className="rightLabel"
+            key={`${name}_${item}`}
+          >
             Arcane
           </label>
         </div>
-          */
       ))}
     </>
   );

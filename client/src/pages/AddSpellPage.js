@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FoundationForm from "../forms/FoundationForm";
-import { Button, Form, Title } from "./AddSpellPage.css";
+import { Title } from "./AddSpellPage.css";
 
 const AddSpellPage = () => {
   const [foundationState, setFoundationState] = useState({});

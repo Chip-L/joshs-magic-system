@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { CheckboxGroup } from "../components/CheckboxGroup";
+import React from "react";
+import CheckboxGroup from "../components/CheckboxGroup";
 // import { Control, Label, LabelGroup, Section } from "../pages/AddSpellPage.css";
 
 import { magicTraits } from "../lists/magicTraits";
-import { getSelectedValues, getOccurances } from "../utils/utilities";
+import { getSelectedValues } from "../utils/utilities";
 import "../pages/AddSpellPageStyle.css";
 
 /**
@@ -27,6 +27,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       case "select-multiple":
         newValue = getSelectedValues(event.target.id);
         break;
+
+      default:
+        break;
     }
 
     update({
@@ -35,7 +38,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
     });
   };
 
-  console.log(magicTraits);
+  // console.log(magicTraits);
 
   return (
     <form action="" onSubmit={onSubmit} name="foundationForm">
@@ -131,7 +134,8 @@ const FoundationForm = ({ values, update, onSubmit }) => {
           values={values}
           update={update}
         />
-        {/* <div className="inputGroup">
+      </fieldset>
+      {/* <div className="inputGroup">
           <input
             type="checkbox"
             id="traditions_arcane"
@@ -175,7 +179,6 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             Primal
           </label>
         </div> */}
-      </fieldset>
 
       {/*
       <fieldset id="features">
