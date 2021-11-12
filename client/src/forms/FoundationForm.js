@@ -47,7 +47,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         newValue = value;
         break;
       default:
-        newValue = value.trim();
+        newValue = value;
         break;
     }
 
@@ -415,10 +415,9 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         </fieldset>
       </fieldset>
 
-      {/*
       <fieldset id="targets">
         <legend>Targets</legend>
-        <div className="inputGroup">
+        <div className="inputGroup" info="number_of_targets">
           <label htmlFor="number_of_targets" className="leftLabel">
             Number of Targets
           </label>
@@ -426,12 +425,12 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="number_of_targets"
             name="number_of_targets"
-            value="1"
+            value={values?.number_of_targets || "1"}
             min="0"
             onChange={handleChange}
           />
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="targets_description">
           <label htmlFor="targets_description" className="leftLabel">
             Description of the targets
           </label>
@@ -440,11 +439,14 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             name="targets_description"
             rows="4"
             cols="50"
-            value="describe the target conditions"
+            value={
+              values?.targets_description || "describe the target conditions"
+            }
             onChange={handleChange}
+            onBlur={() => handleBlur("targets_description")}
           ></textarea>
         </div>
-        <div className="inputGroup">
+        <div className="inputGroup" info="targets_proximity">
           <label htmlFor="targets_proximity" className="leftLabel">
             Proximity
           </label>
@@ -452,6 +454,7 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             type="number"
             id="targets_proximity"
             name="targets_proximity"
+            value={values?.targets_proximity || "1"}
             min="0"
             onChange={handleChange}
           />
@@ -459,7 +462,8 @@ const FoundationForm = ({ values, update, onSubmit }) => {
       </fieldset>
 
       {/* <!-- isn't attack a trait? I'm not sure what this is for --> */}
-      {/*      <div className="inputGroup">
+      {/*      
+      <div className="inputGroup">
         <input
           type="checkbox"
           id="attack"
