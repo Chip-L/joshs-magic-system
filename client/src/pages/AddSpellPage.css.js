@@ -38,11 +38,15 @@ export const Label = styled.label`
   }
 `;
 
+// const maxWidth = Math.floor(window.innerWidth * 0.95) + "px";
+const maxHeight = Math.floor(window.innerHeight - 90) + "px";
+
 export const Screen = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  max-height: ${maxHeight};
 `;
 
 export const Section = styled.section`
@@ -52,7 +56,8 @@ export const Section = styled.section`
 `;
 
 export const Side = styled.section`
-  width: 800px;
+  width: ${window.innerWidth / 2 + "px"};
+  max-height: inherit;
   overflow: auto;
 `;
 
