@@ -1,4 +1,4 @@
-export const books = [
+const books = [
   {
     bookName: "Abomination Vaults Player's Guide",
     system: "Pathfinder 2nd Edition",
@@ -86,3 +86,5 @@ export const books = [
     publisher: "Piazo",
   },
 ];
+
+module.exports = books;

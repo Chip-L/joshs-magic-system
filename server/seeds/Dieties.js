@@ -1,4 +1,4 @@
-export const deities = [
+const deities = [
   {
     dietyName: "Abadar",
     category: "Gods of the Inner Sea",
