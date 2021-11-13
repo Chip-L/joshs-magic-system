@@ -20,6 +20,13 @@ const bookSchema = new Schema({
       lastName: { type: String },
     },
   ],
+  publisher: {
+    type: String,
+  },
+  linkToPurchase: {
+    type: String,
+    trim: true,
+  },
 });
 
 const Book = mongoose.model("Book", bookSchema);
