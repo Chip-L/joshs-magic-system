@@ -152,10 +152,11 @@ const FoundationForm = ({ values, update, onSubmit }) => {
         />
       </fieldset>
 
-      {/*
-      // check https://www.w3schools.com/jsref/event_ondragleave.asp for some ideas on better way to do these lists (drag drop)
+      {/* check https://www.w3schools.com/jsref/event_ondragleave.asp for some ideas on better way to do these lists (drag drop) */}
       <fieldset id="features">
         <legend>Features</legend>
+
+        {/*
         <div className="inputGroup" info="">
           <label htmlFor="features_deities" className="leftLabel">
             Deities
@@ -244,8 +245,8 @@ const FoundationForm = ({ values, update, onSubmit }) => {
             multiple
           ></select>
         </div>
-      </fieldset>
       */}
+      </fieldset>
 
       <fieldset id="cast">
         <legend>Cast</legend>
